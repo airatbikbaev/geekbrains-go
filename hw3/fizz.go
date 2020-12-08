@@ -4,19 +4,22 @@ import "fmt"
 
 func main() {
 	for i := 1; i <= 100; i++ {
-		if i%3 == 0 && i%5 == 0 {
+		mod3 := i%3 == 0
+		mod5 := i%5 == 0
+
+		if mod3 && mod5 {
 			fmt.Println("FizzBuzz")
 
 			continue
 		}
 
-		if i%3 == 0 {
+		if mod3 {
 			fmt.Println("Fizz")
 
 			continue
 		}
 
-		if i%5 == 0 {
+		if mod5 {
 			fmt.Println("Buzz")
 
 			continue
