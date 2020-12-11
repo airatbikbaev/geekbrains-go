@@ -1,31 +1,14 @@
 package main
 
 import (
+	"../utils"
 	"fmt"
-	"strconv"
 )
 
 func main() {
-	n := scanNumber()
+	n := utils.ScanIntNumber("Введите число N:")
 
 	printSimpleNumbers(int(n))
-}
-
-func scanNumber() int64 {
-	var x string
-
-	for {
-		fmt.Println("Введите число N")
-		fmt.Scanln(&x)
-
-		val, err := strconv.ParseInt(x, 10, 64)
-
-		if err != nil {
-			continue
-		} else {
-			return val
-		}
-	}
 }
 
 func printSimpleNumbers(n int) {
