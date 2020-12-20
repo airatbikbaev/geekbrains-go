@@ -1,34 +1,17 @@
 package main
 
 import (
+	"../utils"
 	"fmt"
-	"strconv"
 )
 
 func main() {
 	var a, b float64
 
-	a = scanNumber("Введите число А:")
-	b = scanNumber("Введите число B:")
+	a = utils.ScanFloatNumber("Введите число А:")
+	b = utils.ScanFloatNumber("Введите число B:")
 
 	fmt.Printf("Результат вычислений: %f\n", getCalculation(a, b))
-}
-
-func scanNumber(text string) float64 {
-	var x string
-
-	for {
-		fmt.Println(text)
-		fmt.Scanln(&x)
-
-		val, err := strconv.ParseFloat(x, 64)
-
-		if err != nil {
-			continue
-		} else {
-			return val
-		}
-	}
 }
 
 func getCalculation(a float64, b float64) float64 {
