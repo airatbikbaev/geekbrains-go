@@ -1,10 +1,10 @@
 package configs
 
 import (
-	"fmt"
 	"gopkg.in/yaml.v2"
 	"io/ioutil"
 	"log"
+	"regexp"
 )
 
 type Config struct {
@@ -18,19 +18,37 @@ type Config struct {
 	ProdUrl string `yaml:"prod_url"`
 }
 
-func CheckConfig() {
-	file, fileErr := ioutil.ReadFile("configs.yaml")
-	if fileErr != nil {
-		log.Fatalf("Не могу открыть файл: %v", fileErr)
+func (c *Config) getConf() *Config {
+	yamlFile, err := ioutil.ReadFile("../configs/config.yaml")
+
+	if err != nil {
+		log.Printf("yamlFile.Get err   #%v ", err)
 	}
 
-	config := Config{}
-
-	err := yaml.Unmarshal(file, &config)
+	err = yaml.Unmarshal(yamlFile, c)
 
 	if err != nil {
 		log.Fatalf("Unmarshal: %v", err)
 	}
 
-	fmt.Println(config)
+	return c
+}
+
+func IsConfigCorrect() bool {
+	config := Config{}
+	config.getConf()
+
+	return isProdUrlCorrect(config.ProdUrl) && isCredsCorrect(config)
+
+}
+
+func isProdUrlCorrect(url string) bool {
+	prodUrl := regexp.MustCompile(`https://prod\..*`)
+
+	return prodUrl.MatchString(url)
+}
+
+func isCredsCorrect(c Config) bool {
+	return c.User.Login == "admin" && c.User.Password == "admin"
+
 }
