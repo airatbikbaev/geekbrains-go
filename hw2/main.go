@@ -2,7 +2,9 @@ package main
 
 import (
 	"../utils"
+	"errors"
 	"fmt"
+	"math"
 )
 
 func main() {
@@ -11,10 +13,18 @@ func main() {
 	a = utils.ScanFloatNumber("Введите число А:")
 	b = utils.ScanFloatNumber("Введите число B:")
 
-	fmt.Printf("Результат вычислений: %f\n", getCalculation(a, b))
+	calc, err := getCalculation(a, b)
+
+	if err != nil {
+		fmt.Printf("Ошибка: %s\n", err)
+
+		return
+	}
+
+	fmt.Printf("Результат вычислений: %f\n", calc)
 }
 
-func getCalculation(a float64, b float64) float64 {
+func getCalculation(a float64, b float64) (float64, error) {
 	var operation string
 
 	for {
@@ -23,15 +33,18 @@ func getCalculation(a float64, b float64) float64 {
 
 		switch operation {
 		case "+":
-			return a + b
+			return a + b, nil
 		case "-":
-			return a - b
+			return a - b, nil
 		case "/":
-			return a / b
+			if b == 0 {
+				return 0, errors.New("На 0 делить нельзя")
+			}
+			return a / b, nil
 		case "*":
-			return a * b
+			return a * b, nil
 		case "%":
-			return float64(int(a) % int(b))
+			return math.Mod(a, b), nil
 		case "^":
 			x := a
 
@@ -39,7 +52,11 @@ func getCalculation(a float64, b float64) float64 {
 				x *= a
 			}
 
-			return x
+			if b < 0 {
+				return 1 / x, nil
+			}
+
+			return x, nil
 		default:
 			continue
 		}
