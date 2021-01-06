@@ -1,18 +1,6 @@
-package main
+package hw3
 
-import "fmt"
-
-func main() {
-	array := []int{20, 34, 0, 12, 5, 17, 10}
-	sortedBubbleArray := getBubbleSortedSlice(array)
-	sortedIntersectionArray := getInsertionSortedSlice(array)
-
-	fmt.Println(array)
-	fmt.Println(sortedBubbleArray)
-	fmt.Println(sortedIntersectionArray)
-}
-
-func getBubbleSortedSlice(arr []int) []int {
+func GetBubbleSortedSlice(arr []int) []int {
 	sortedArray := make([]int, len(arr))
 
 	copy(sortedArray, arr)
@@ -38,7 +26,7 @@ func getBubbleSortedSlice(arr []int) []int {
 	return sortedArray
 }
 
-func getInsertionSortedSlice(arr []int) []int {
+func GetInsertionSortedSlice(arr []int) []int {
 	sortedArray := make([]int, len(arr))
 
 	copy(sortedArray, arr)

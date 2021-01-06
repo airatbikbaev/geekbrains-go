@@ -1,8 +1,8 @@
-package main
+package hw3
 
 import "fmt"
 
-func main() {
+func fizzBuzz() {
 	for i := 1; i <= 100; i++ {
 		mod3 := i%3 == 0
 		mod5 := i%5 == 0
