@@ -1,8 +1,8 @@
-package main
+package hw4
 
 import (
-	"../utils"
 	"fmt"
+	"github.com/airatbikbaev/geekbrains-go/utils"
 )
 
 var fibonacciMap = map[uint64]uint64{0: 0, 1: 1, 2: 1}
